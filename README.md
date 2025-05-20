@@ -156,14 +156,14 @@ Workflows for YOLOv8:
   ```
 
 **Dependencies**: `ultralytics`, `opencv-python-headless`, `numpy`, `matplotlib`, `pyyaml`
----
 
+---
 ## Author
 
 Developed by **Pedro Martínez-Huertas** · pedromarhuer03@gmail.com
 Authorized by the company **EONSEA** as part of an internal computer vision project.
----
 
+---
 ## 🤝 Contributing
 
 Contributions, issues, and feature requests are welcome! Please open an issue or pull request in the relevant subfolder.
