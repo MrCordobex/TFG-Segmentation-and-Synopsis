@@ -26,16 +26,23 @@ pip install torch torchvision ultralytics opencv-python-headless numpy matplotli
 
 ```text
 ├── KeyFrame_Synopsis/      # Video clustering and synopsis project
-│   ├── utils/              # Helper modules for clustering, embedding, visualization
-│   ├── frames/             # (output) extracted frames
-│   ├── synopsis/           # (output) selected key frames and summary video
-│   └── notebooks/          # Optional Jupyter notebooks for exploration
-│       └── example.ipynb
+│   ├── main.ipynb          # Main notebook for the full pipeline
+│   ├── README.md           # Project-specific README
+│   └── utils/              # Utility modules
+│       ├── clustering.py
+│       ├── cosenoRBF.py
+│       ├── dimensionalreduction.py
+│       ├── functions.py
+│       ├── grouping.py
+│       ├── inference.py
+│       ├── sinopsis.py
+│       └── video.py
 ├── YOLO/                   # YOLOv8 training and inference project
 │   ├── Training.ipynb      # Notebook for model training
 │   ├── Evaluation.ipynb    # Notebook for model validation
 │   ├── Comparison.ipynb    # Notebook to compare two models' outputs
 │   ├── Real_time.ipynb     # Notebook for webcam inference
+│   ├── README.md           # Project-specific README
 │   └── YOLO_hyperparameters.md # Detailed hyperparameters reference
 └── README.md               # This combined README
 ```
@@ -149,13 +156,12 @@ Workflows for YOLOv8:
   ```
 
 **Dependencies**: `ultralytics`, `opencv-python-headless`, `numpy`, `matplotlib`, `pyyaml`
-
 ---
+
 ## Author
 
 Developed by **Pedro Martínez-Huertas** · pedromarhuer03@gmail.com
 Authorized by the company **EONSEA** as part of an internal computer vision project.
-
 ---
 
 ## 🤝 Contributing
