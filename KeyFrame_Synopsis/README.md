@@ -101,49 +101,50 @@ frames_to_video(frames_folder, output_video, fps=fps, prefix='frame')
 ---
 ## 7. pipeline\_runner.py
 
-Este script orquesta todo el flujo de trabajo (extracción, clustering, detección, sinopsis y vídeo resumen) lanzando clustering y predicción en paralelo.
+This script orchestrates the entire workflow (frame extraction, clustering, detection, synopsis, and summary video) by running clustering and prediction in parallel.
 
 ---
 
-### Uso
+### Usage
 
 ```
-python pipeline_runner.py <video_path> <model_path> [opciones]
+python pipeline_runner.py <video_path> <model_path> [options]
 ```
 
-#### Argumentos posicionales
+#### Positional arguments
 
-* `<video_path>`: Ruta al vídeo MP4 de entrada.
-* `<model_path>`: Ruta al fichero `.pt` del modelo YOLO.
+* `<video_path>`: Path to the input MP4 video.
+* `<model_path>`: Path to the YOLO model file (`.pt`).
 
-#### Opciones
+#### Options
 
-| Opción                 | Descripción                                                 | Valor por defecto |
-| ---------------------- | ----------------------------------------------------------- | ----------------- |
-| `--run_dir DIR`        | Carpeta base donde se guardan todos los resultados.         | `RUN`             |
-| `--skip N`             | Cada N-ésimo frame a extraer (salta N-1).                   | `1`               |
-| `-c, --classes C [C…]` | Índices de las clases a filtrar en YOLO (lista de enteros). | `[0]`             |
-| `--threshold F`        | Umbral de confianza para la predicción YOLO.                | `0.2`             |
-| `--fps N`              | FPS del vídeo de sinopsis generado.                         | `30`              |
+| Option                 | Description                                     | Default |
+| ---------------------- | ----------------------------------------------- | ------- |
+| `--run_dir DIR`        | Base folder where all outputs are saved.        | `RUN`   |
+| `--skip N`             | Extract every N-th frame (skip N-1).            | `1`     |
+| `-c, --classes C [C…]` | List of class indices to filter in YOLO.        | `[0]`   |
+| `--threshold F`        | Confidence threshold for YOLO predictions.      | `0.2`   |
+| `--fps N`              | Frames per second for the final synopsis video. | `30`    |
 
 ---
 
-### Salidas en `--run_dir` (por defecto `RUN`)
+### Outputs inside `--run_dir` (default `RUN`)
 
 1. `Frames_video/`
-   Todos los frames extraídos del vídeo.
+   All extracted video frames.
 2. `clust.pkl`
-   DataFrame de clustering.
+   Pickle file with the clustering DataFrame.
 3. `pred.pkl`
-   DataFrame de predicción YOLO.
+   Pickle file with the YOLO prediction DataFrame.
 4. `Yolo_output/`
-   Imágenes con las detecciones YOLO.
+   Images with YOLO detections.
 5. `Frames_video_sinopsis/`
-   Frames seleccionados dibujados por cluster (serie y visual).
+   Selected frames visualized by cluster (series and images).
 6. `Output_sinopsis/`
-   Copia de los frames finales elegidos por sinopsis.
+   Copy of the final frames chosen by the synopsis module.
 7. `Video_Sinopsis.mp4`
-   Vídeo resumen generado a partir de `Frames_video_sinopsis/`.
+   Summary video generated from `Frames_video_sinopsis/`.
+
 ---
 
 ## Author
