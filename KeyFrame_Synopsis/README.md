@@ -99,6 +99,52 @@ frames_to_video(frames_folder, output_video, fps=fps, prefix='frame')
 * `utils/video.py` → video-to-frame and frame-to-video conversion.
 
 ---
+## 7. pipeline\_runner.py
+
+Este script orquesta todo el flujo de trabajo (extracción, clustering, detección, sinopsis y vídeo resumen) lanzando clustering y predicción en paralelo.
+
+---
+
+### Uso
+
+```
+python pipeline_runner.py <video_path> <model_path> [opciones]
+```
+
+#### Argumentos posicionales
+
+* `<video_path>`: Ruta al vídeo MP4 de entrada.
+* `<model_path>`: Ruta al fichero `.pt` del modelo YOLO.
+
+#### Opciones
+
+| Opción                 | Descripción                                                 | Valor por defecto |
+| ---------------------- | ----------------------------------------------------------- | ----------------- |
+| `--run_dir DIR`        | Carpeta base donde se guardan todos los resultados.         | `RUN`             |
+| `--skip N`             | Cada N-ésimo frame a extraer (salta N-1).                   | `1`               |
+| `-c, --classes C [C…]` | Índices de las clases a filtrar en YOLO (lista de enteros). | `[0]`             |
+| `--threshold F`        | Umbral de confianza para la predicción YOLO.                | `0.2`             |
+| `--fps N`              | FPS del vídeo de sinopsis generado.                         | `30`              |
+
+---
+
+### Salidas en `--run_dir` (por defecto `RUN`)
+
+1. `Frames_video/`
+   Todos los frames extraídos del vídeo.
+2. `clust.pkl`
+   DataFrame de clustering.
+3. `pred.pkl`
+   DataFrame de predicción YOLO.
+4. `Yolo_output/`
+   Imágenes con las detecciones YOLO.
+5. `Frames_video_sinopsis/`
+   Frames seleccionados dibujados por cluster (serie y visual).
+6. `Output_sinopsis/`
+   Copia de los frames finales elegidos por sinopsis.
+7. `Video_Sinopsis.mp4`
+   Vídeo resumen generado a partir de `Frames_video_sinopsis/`.
+---
 
 ## Author
 
