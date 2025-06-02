@@ -86,7 +86,7 @@ def orchestrator(args):
     # Pasar clases como argumentos separados
     class_args = []
     for c in args.classes:
-        class_args.extend(["--classes", str(c)])
+        class_args = ["--classes"] + [str(c) for c in args.classes]
     p2 = subprocess.Popen([
         python_exe, script,
         "pred",
