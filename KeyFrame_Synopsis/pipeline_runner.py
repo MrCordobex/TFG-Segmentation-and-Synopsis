@@ -122,8 +122,8 @@ def orchestrator(args):
         df_total,
         os.path.join(run_dir, "Yolo_output"),
         sinopsis_folder,
-        plot_series=True,
-        plot_frames=True
+        plot_series=False,
+        plot_frames=False
     )
     print(f"[MAIN] Sinopsis guardada en {sinopsis_folder}", flush=True)
 
@@ -150,6 +150,19 @@ def orchestrator(args):
     print(f"[VIDEO] Video resultado en {output_video}", flush=True)
 
     print("[DONE] Pipeline completado.", flush=True)
+
+    # 7) Cleanup: eliminar todo excepto Output_sinopsis y Video_Sinopsis.mp4
+    print("[CLEANUP] Eliminando carpetas y archivos temporales...", flush=True)
+    for entry in os.listdir(run_dir):
+        path = os.path.join(run_dir, entry)
+        # Saltamos Output_sinopsis y el fichero Video_Sinopsis.mp4
+        if entry == "Output_sinopsis" or entry == os.path.basename(output_video):
+            continue
+        if os.path.isdir(path):
+            shutil.rmtree(path)
+        else:
+            os.remove(path)
+    print("[CLEANUP] Finalizado. Solo permanecen Output_sinopsis y Video_Sinopsis.mp4", flush=True)
 
 
 def parse_orchestrator(argv):
