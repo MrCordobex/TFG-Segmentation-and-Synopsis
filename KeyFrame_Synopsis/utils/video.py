@@ -44,16 +44,19 @@ def video_to_frames(video_path, output_folder, prefix='frame', skip=1):
 
 def frames_to_video(input_folder, output_video, fps=30, prefix='frame'):
     """
-    Crea un video a partir de una secuencia de imágenes (frames) almacenadas en una carpeta.
+    Crea un video a partir de una secuencia de imágenes (frames) almacenadas en una carpeta,
+    mostrando una barra de progreso con tqdm.
 
     :param input_folder: Carpeta donde se encuentran los fotogramas (imágenes).
     :param output_video: Nombre (ruta) del archivo de video de salida, ej. 'salida.mp4'.
     :param fps: Cuadros por segundo para el video resultante.
     :param prefix: Prefijo de los nombres de archivo que identifiquen a los frames.
     """
-    # 1. Listar todos los archivos de la carpeta que coincidan con el prefijo y terminen en .jpg (o .png)
-    frames_list = sorted([f for f in os.listdir(input_folder)
-                          if f.startswith(prefix) and f.lower().endswith(('.jpg', '.png'))])
+    # 1. Listar todos los archivos de la carpeta que coincidan con el prefijo y terminen en .jpg o .png
+    frames_list = sorted([
+        f for f in os.listdir(input_folder)
+        if f.startswith(prefix) and f.lower().endswith(('.jpg', '.png'))
+    ])
 
     if not frames_list:
         print("No se encontraron fotogramas en la carpeta especificada.")
@@ -65,16 +68,14 @@ def frames_to_video(input_folder, output_video, fps=30, prefix='frame'):
     if first_frame is None:
         print(f"No se pudo leer el primer fotograma: {first_frame_path}")
         return
-
     height, width, channels = first_frame.shape
 
     # 3. Configurar el VideoWriter
-    # - fourcc puede ser 'mp4v' para .mp4 o 'XVID' para .avi, etc.
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')
     out = cv2.VideoWriter(output_video, fourcc, fps, (width, height))
 
-    # 4. Recorrer todos los frames y escribirlos en el video
-    for frame_name in frames_list:
+    # 4. Recorrer todos los frames con tqdm
+    for frame_name in tqdm(frames_list, desc="Escribiendo video", unit="frame"):
         frame_path = os.path.join(input_folder, frame_name)
         frame = cv2.imread(frame_path)
         if frame is None:
